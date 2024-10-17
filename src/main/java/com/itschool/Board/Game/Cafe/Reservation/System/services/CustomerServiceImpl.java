@@ -1,44 +1,41 @@
 package com.itschool.Board.Game.Cafe.Reservation.System.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.CustomerDTO;
+import com.itschool.Board.Game.Cafe.Reservation.System.exceptions.CustomerDuplicateEmailException;
+import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.RequestCustomerDTO;
+import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.ResponseCustomerDTO;
 import com.itschool.Board.Game.Cafe.Reservation.System.models.entities.Customer;
 import com.itschool.Board.Game.Cafe.Reservation.System.repositories.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Slf4j
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private final CustomerRepository customerRepository;
     private final ObjectMapper objectMapper;
+    private final CustomerRepository customerRepository;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, ObjectMapper objectMapper) {
-        this.customerRepository = customerRepository;
+    public CustomerServiceImpl(ObjectMapper objectMapper, CustomerRepository customerRepository) {
         this.objectMapper = objectMapper;
+        this.customerRepository = customerRepository;
     }
 
     @Override
-    public CustomerDTO createCustomer(CustomerDTO customerDTO) {
-        if (customerDTO.getEmail().length() < 3) {
-            throw new RuntimeException("Invalid email!");
+    public ResponseCustomerDTO createCustomer(RequestCustomerDTO requestCustomerDTO) {
+        validateEmailAddress(requestCustomerDTO);
+
+        Customer customerEntity = objectMapper.convertValue(requestCustomerDTO, Customer.class);
+        Customer customerEntityResponse = customerRepository.save(customerEntity);
+        log.info("Customer with id {} was saved", customerEntityResponse.getId());
+
+        return objectMapper.convertValue(customerEntityResponse, ResponseCustomerDTO.class);
+    }
+
+    private void validateEmailAddress(RequestCustomerDTO requestCustomerDTO) {
+        Customer customer = customerRepository.findByEmail(requestCustomerDTO.getEmail());
+        if (customer != null) {
+            throw new CustomerDuplicateEmailException("Email address already exists");
         }
-        Customer customerEntityToBeSaved = objectMapper.convertValue(customerDTO, Customer.class);
-        Customer customerResponseEntity = customerRepository.save(customerEntityToBeSaved);
-        log.info("Created customer with id: {}", customerResponseEntity.getId());
-
-        return objectMapper.convertValue(customerResponseEntity, CustomerDTO.class);
-    }
-
-    @Override
-    public List<CustomerDTO> getCustomers() {
-        List<Customer> customers = customerRepository.findAll();
-
-        return customers.stream()
-                .map(customer -> objectMapper.convertValue(customer, CustomerDTO.class))
-                .toList();
     }
 }

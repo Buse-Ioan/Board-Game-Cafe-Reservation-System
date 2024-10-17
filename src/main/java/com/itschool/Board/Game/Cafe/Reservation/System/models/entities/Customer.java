@@ -1,10 +1,7 @@
 package com.itschool.Board.Game.Cafe.Reservation.System.models.entities;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.UUID;
 
 @Entity
 @Data

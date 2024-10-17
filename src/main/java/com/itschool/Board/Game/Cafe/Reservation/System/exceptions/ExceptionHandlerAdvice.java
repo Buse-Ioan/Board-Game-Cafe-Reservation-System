@@ -21,9 +21,9 @@ public class ExceptionHandlerAdvice {
         this.objectMapper = objectMapper;
     }
 
-    @ExceptionHandler(CustomerCreateException.class)
-    public ResponseEntity<String> userCreateException(CustomerCreateException userCreateException) {
-        return new ResponseEntity<>(objectToString(Map.of("message", userCreateException.getMessage())), BAD_REQUEST);
+    @ExceptionHandler(CustomerDuplicateEmailException.class)
+    public ResponseEntity<String> customerDuplicateEmailException(CustomerDuplicateEmailException customerDuplicateEmailException) {
+        return new ResponseEntity<>(objectToString(Map.of("message", customerDuplicateEmailException.getMessage())), BAD_REQUEST);
     }
 
     private String objectToString(Object response) {
