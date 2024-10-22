@@ -9,5 +9,4 @@ public class BoardGameCafeReservationSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BoardGameCafeReservationSystemApplication.class, args);
 	}
-
 }
