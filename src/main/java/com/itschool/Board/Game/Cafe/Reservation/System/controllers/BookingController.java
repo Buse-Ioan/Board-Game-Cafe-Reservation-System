@@ -28,7 +28,7 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.createBooking(bookingDTO));
     }
 
-    @Operation(summary = "Get all bookings")
+    @Operation(summary = "Get a list of all bookings")
     @GetMapping
     public ResponseEntity<List<BookingDTO>> getAllBookings() {
 
@@ -43,7 +43,7 @@ public class BookingController {
     }
 
     @Operation(summary = "Get a booking by email")
-        @GetMapping("/customer")
+        @GetMapping("/email")
     public ResponseEntity<List<BookingDTO>> getBookingsByCustomerEmail(@RequestParam String customerEmail) {
 
         return ResponseEntity.ok(bookingService.findBookingByCustomerEmail(customerEmail));
@@ -54,6 +54,12 @@ public class BookingController {
     public ResponseEntity<List<BookingDTO>> getBookingsByDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate bookingDate) {
 
         return ResponseEntity.ok(bookingService.findByBookingDate(bookingDate));
+    }
+
+    @Operation(summary = "Get bookings by customer name")
+    @GetMapping("/name")
+    public ResponseEntity<List<BookingDTO>> getBookingsByCustomerName(@RequestParam String customerName) {
+        return ResponseEntity.ok(bookingService.findBookingByCustomerName(customerName));
     }
 
     @Operation(summary = "Update an existing booking by ID")

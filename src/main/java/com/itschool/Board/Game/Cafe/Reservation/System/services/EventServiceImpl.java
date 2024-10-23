@@ -30,17 +30,19 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDTO saveEvent(EventDTO eventDTO) {
+    public EventDTO createEvent(EventDTO eventDTO) {
         Event event = objectMapper.convertValue(eventDTO, Event.class);
-        Event savedEvent = eventRepository.save(event);
-        log.info("Event saved successfully with ID: {}", savedEvent.getId());
-        return objectMapper.convertValue(savedEvent, EventDTO.class);
+        Event createdEvent = eventRepository.save(event);
+        log.info("Event saved successfully with ID: {}", createdEvent.getId());
+
+        return objectMapper.convertValue(createdEvent, EventDTO.class);
     }
 
     @Override
     public List<EventDTO> findAllEvents() {
         List<Event> events = eventRepository.findAll();
         log.info("Found {} events", events.size());
+
         return events.stream()
                 .map(event -> objectMapper.convertValue(event, EventDTO.class))
                 .collect(Collectors.toList());

@@ -27,13 +27,13 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public GameDTO saveGame(GameDTO gameDTO) {
+    public GameDTO createGame(GameDTO gameDTO) {
         // Using ObjectMapper to map DTO to entity
         Game game = objectMapper.convertValue(gameDTO, Game.class);
-        Game savedGame = gameRepository.save(game);
-        log.info("Game saved successfully with ID: {}", savedGame.getId());
+        Game createdGame = gameRepository.save(game);
+        log.info("Game saved successfully with ID: {}", createdGame.getId());
         // Return the saved entity as a DTO
-        return objectMapper.convertValue(savedGame, GameDTO.class);
+        return objectMapper.convertValue(createdGame, GameDTO.class);
     }
 
     @Override
@@ -74,9 +74,10 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void deleteGame(Long id) {
+    public void deleteGameById(Long id) {
         gameRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Game not found with ID: " + id));
+
         gameRepository.deleteById(id);
         log.info("Game deleted successfully");
     }
@@ -95,6 +96,7 @@ public class GameServiceImpl implements GameService {
     public List<GameDTO> findGameByName(String name) {
         List<Game> games = gameRepository.findByNameContainingIgnoreCase(name);
         log.info("Found {} games with name: {}", games.size(), name);
+
         return games.stream()
                 .map(game -> objectMapper.convertValue(game, GameDTO.class))
                 .collect(Collectors.toList());

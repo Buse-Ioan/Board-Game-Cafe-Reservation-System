@@ -26,10 +26,10 @@ public class GameController {
     @PostMapping
     public ResponseEntity<GameDTO> createGame(@Valid @RequestBody GameDTO gameDTO) {
 
-        return ResponseEntity.ok(gameService.saveGame(gameDTO));
+        return ResponseEntity.ok(gameService.createGame(gameDTO));
     }
 
-    @Operation(summary = "Get all games")
+    @Operation(summary = "Get a list of all games")
     @GetMapping
     public ResponseEntity<List<GameDTO>> getAllGames() {
 
@@ -43,8 +43,8 @@ public class GameController {
         return ResponseEntity.ok(gameService.findGameById(id));
     }
 
-    @Operation(summary = "Find games by name")
-    @GetMapping("/search-by-name")
+    @Operation(summary = "Get a game by name")
+    @GetMapping("/name")
     public ResponseEntity<List<GameDTO>> findGameByName(@RequestParam("name") String name) {
         List<GameDTO> games = gameService.findGameByName(name);
 
@@ -60,8 +60,8 @@ public class GameController {
 
     @Operation(summary = "Delete a game by ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGame(@PathVariable Long id) {
-        gameService.deleteGame(id);
+    public ResponseEntity<Void> deleteGameById(@PathVariable Long id) {
+        gameService.deleteGameById(id);
 
         return ResponseEntity.noContent().build();
     }

@@ -21,6 +21,5 @@ public interface BookingService {
 
     void deleteBooking(Long id);
 
-
-
+    List<BookingDTO> findBookingByCustomerName(String customerName);
 }

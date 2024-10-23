@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface GameService {
 
-    GameDTO saveGame(GameDTO gameDTO);
+    GameDTO createGame(GameDTO gameDTO);
 
     List<GameDTO> findAllGames();
 
@@ -14,7 +14,7 @@ public interface GameService {
 
     GameDTO updateGame(Long id, GameDTO gameDTO);
 
-    void deleteGame(Long id);
+    void deleteGameById(Long id);
 
     List<GameDTO> findGameByName(String name);
 

@@ -17,12 +17,12 @@ public class GameDTO {
     @NotBlank(message = "Game genre cannot be blank")
     private String genre;
 
-//    @Min(value = 2, message = "Minimum number of players must be at least 2")
-//    @Max(value = 10, message = "Maximum number of players cannot exceed 10")
+    @Min(value = 2, message = "Minimum number of players must be at least 2")
+    @Max(value = 10, message = "Maximum number of players cannot exceed 10")
     private int minPlayers;
 
-//    @Min(value = 2, message = "Minimum number of players must be at least 2")
-//    @Max(value = 10, message = "Maximum number of players cannot exceed 10")
+    @Min(value = 2, message = "Minimum number of players must be at least 2")
+    @Max(value = 10, message = "Maximum number of players cannot exceed 10")
     private int maxPlayers;
 
     @NotNull(message = "Availability status is required")

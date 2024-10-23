@@ -23,12 +23,12 @@ public class EventController {
     @Operation(summary = "Create a new event")
     @PostMapping
     public ResponseEntity<EventDTO> createEvent(@Valid @RequestBody EventDTO eventDTO) {
-        EventDTO createdEvent = eventService.saveEvent(eventDTO);
+        EventDTO createdEvent = eventService.createEvent(eventDTO);
 
-        return ResponseEntity.ok(eventService.saveEvent(eventDTO));
+        return ResponseEntity.ok(eventService.createEvent(eventDTO));
     }
 
-    @Operation(summary = "Get and list all events")
+    @Operation(summary = "Get a list of all events")
     @GetMapping
     public ResponseEntity<List<EventDTO>> getAllEvents() {
         List<EventDTO> events = eventService.findAllEvents();
