@@ -3,12 +3,12 @@ package com.itschool.Board.Game.Cafe.Reservation.System.models.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name = "games")
-public class TableBooking {
+@Table(name = "bookings")
+public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +20,8 @@ public class TableBooking {
     @Column(name = "customer_email", nullable = false)
     private String customerEmail;
 
-    @Column(name = "reservation_time", nullable = false)
-    private LocalDateTime reservationTime;
+    @Column(name = "booking_date", nullable = false)
+    private LocalDate bookingDate;
 
     @Column(name = "number_of_people", nullable = false)
     private int numberOfPeople;

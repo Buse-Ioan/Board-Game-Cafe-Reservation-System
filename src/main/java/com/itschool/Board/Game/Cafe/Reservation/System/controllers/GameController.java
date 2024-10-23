@@ -4,6 +4,8 @@ import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.GameDTO;
 import com.itschool.Board.Game.Cafe.Reservation.System.services.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/games")
 public class GameController {
 
+    private static final Logger log = LoggerFactory.getLogger(GameController.class);
     private final GameService gameService;
 
     public GameController(GameService gameService) {
@@ -21,25 +24,37 @@ public class GameController {
 
     @Operation(summary = "Create a new game")
     @PostMapping
-    public ResponseEntity<GameDTO> createGame(@Valid  @RequestBody GameDTO gameDTO) {
+    public ResponseEntity<GameDTO> createGame(@Valid @RequestBody GameDTO gameDTO) {
+
         return ResponseEntity.ok(gameService.saveGame(gameDTO));
     }
 
-    @Operation(summary = "Retrieve all games")
+    @Operation(summary = "Get all games")
     @GetMapping
     public ResponseEntity<List<GameDTO>> getAllGames() {
+
         return ResponseEntity.ok(gameService.findAllGames());
     }
 
-    @Operation(summary = "Retrieve a game by ID")
+    @Operation(summary = "Get a game by ID")
     @GetMapping("/{id}")
     public ResponseEntity<GameDTO> getGameById(@PathVariable Long id) {
+
         return ResponseEntity.ok(gameService.findGameById(id));
     }
 
-    @Operation(summary = "Retrieve an existing game by ID")
+    @Operation(summary = "Find games by name")
+    @GetMapping("/search-by-name")
+    public ResponseEntity<List<GameDTO>> findGameByName(@RequestParam("name") String name) {
+        List<GameDTO> games = gameService.findGameByName(name);
+
+        return ResponseEntity.ok(games);
+    }
+
+    @Operation(summary = "Update an existing game by ID")
     @PutMapping("/{id}")
     public ResponseEntity<GameDTO> updateGame(@PathVariable Long id, @RequestBody GameDTO gameDTO) {
+
         return ResponseEntity.ok(gameService.updateGame(id, gameDTO));
     }
 
@@ -47,6 +62,7 @@ public class GameController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGame(@PathVariable Long id) {
         gameService.deleteGame(id);
+
         return ResponseEntity.noContent().build();
     }
 }

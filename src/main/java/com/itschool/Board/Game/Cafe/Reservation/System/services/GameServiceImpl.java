@@ -40,6 +40,7 @@ public class GameServiceImpl implements GameService {
     public List<GameDTO> findAllGames() {
         List<Game> games = gameRepository.findAll();
         log.info("Found {} games", games.size());
+
         // Map all Game entities to GameDTOs using ObjectMapper
         return games.stream()
                 .map(game -> objectMapper.convertValue(game, GameDTO.class))
@@ -51,19 +52,24 @@ public class GameServiceImpl implements GameService {
         Game game = gameRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Game not found with ID: " + id));
         log.info("Game found: {}", game.getName());
+
         return objectMapper.convertValue(game, GameDTO.class);
+
     }
+
+
 
     @Override
     public GameDTO updateGame(Long id, GameDTO gameDTO) {
         Game existingGame = gameRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Game not found with ID: " + id));
         existingGame.setName(gameDTO.getName());
-        existingGame.setCategory(gameDTO.getCategory());
+        existingGame.setGenre(gameDTO.getGenre());
         existingGame.setMinPlayers(gameDTO.getMinPlayers());
         existingGame.setMaxPlayers(gameDTO.getMaxPlayers());
         Game updatedGame = gameRepository.save(existingGame);
         log.info("Game updated successfully: {}", updatedGame.getName());
+
         return objectMapper.convertValue(updatedGame, GameDTO.class);
     }
 
@@ -77,8 +83,18 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameDTO> findByGenre(String genre) {
-        List<Game> games = gameRepository.findByCategory(genre);
+        List<Game> games = gameRepository.findByGenre(genre);
         log.info("Found {} games with genre: {}", games.size(), genre);
+
+        return games.stream()
+                .map(game -> objectMapper.convertValue(game, GameDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GameDTO> findGameByName(String name) {
+        List<Game> games = gameRepository.findByNameContainingIgnoreCase(name);
+        log.info("Found {} games with name: {}", games.size(), name);
         return games.stream()
                 .map(game -> objectMapper.convertValue(game, GameDTO.class))
                 .collect(Collectors.toList());

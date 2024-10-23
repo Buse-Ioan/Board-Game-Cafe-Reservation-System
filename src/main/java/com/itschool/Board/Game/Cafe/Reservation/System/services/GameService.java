@@ -16,5 +16,7 @@ public interface GameService {
 
     void deleteGame(Long id);
 
+    List<GameDTO> findGameByName(String name);
+
     List<GameDTO> findByGenre(String genre);
 }

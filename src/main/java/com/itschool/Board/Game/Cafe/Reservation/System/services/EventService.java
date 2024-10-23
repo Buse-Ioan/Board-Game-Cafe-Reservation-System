@@ -3,6 +3,7 @@ package com.itschool.Board.Game.Cafe.Reservation.System.services;
 import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.EventDTO;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface EventService {

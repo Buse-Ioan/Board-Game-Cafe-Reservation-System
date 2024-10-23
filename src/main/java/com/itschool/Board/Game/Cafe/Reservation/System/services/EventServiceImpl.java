@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +51,7 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Event not found with ID: " + id));
         log.info("Event found: {}", event.getName());
+
         return objectMapper.convertValue(event, EventDTO.class);
     }
 
@@ -57,6 +59,7 @@ public class EventServiceImpl implements EventService {
     public List<EventDTO> findEventByName(String name) {
         List<Event> events = eventRepository.findEventByName(name);
         log.info("Found {} events with name: {}", events.size(), name);
+
         return events.stream()
                 .map(event -> objectMapper.convertValue(event, EventDTO.class))
                 .collect(Collectors.toList());
@@ -65,6 +68,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventDTO> findByEventDate(LocalDate eventDate) {
         List<Event> events = eventRepository.findByEventDate(eventDate);
+
         return events.stream()
                 .map(event -> objectMapper.convertValue(event, EventDTO.class))
                 .collect(Collectors.toList());
@@ -82,6 +86,7 @@ public class EventServiceImpl implements EventService {
 
         Event updatedEvent = eventRepository.save(existingEvent);
         log.info("Event updated successfully: {}", updatedEvent.getName());
+
         return objectMapper.convertValue(updatedEvent, EventDTO.class);
     }
 

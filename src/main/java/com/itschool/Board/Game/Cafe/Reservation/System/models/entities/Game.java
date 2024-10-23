@@ -17,12 +17,15 @@ public class Game {
     @Column(name = "game_name", nullable = false)
     private String name;
 
-    @Column(name = "game_category", nullable = false)
-    private String category;
+    @Column(name = "game_genre", nullable = false)
+    private String genre;
 
     @Column(name = "min_players")
     private int minPlayers;
 
     @Column(name = "max_players")
     private int maxPlayers;
+
+    @Column(name = "availability", nullable = false)
+    private Boolean availability;
 }

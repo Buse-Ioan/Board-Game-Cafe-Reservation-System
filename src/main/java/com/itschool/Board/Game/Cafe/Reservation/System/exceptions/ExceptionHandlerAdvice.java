@@ -29,7 +29,7 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(GameNotFoundException.class)
-    public ResponseEntity<Object> handleEventNotFoundException(GameNotFoundException gameNotFoundException) {
+    public ResponseEntity<Object> handleGameNotFoundException(GameNotFoundException gameNotFoundException) {
         return new ResponseEntity<>(objectToString(Map.of("message", gameNotFoundException.getMessage())), NOT_FOUND);
     }
 

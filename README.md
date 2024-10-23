@@ -1,6 +1,7 @@
 # Business Domain: Board Game Cafe Reservation System
 
-A reservation system for board game cafés to manage table bookings, game library inventories, and special game night events.
+The Board Game Café Reservation System is a Spring Boot-based web application designed to manage table bookings, game library inventories, and special game night events for a board game café.
+This application provides a simple API for creating, updating, and retrieving information about games, events, and table bookings. The app also includes dynamic search functionality for events based on name, game type, and event date.
 
 
 ## Table of Contents
@@ -17,17 +18,30 @@ A reservation system for board game cafés to manage table bookings, game librar
 ## Tech Stack
 - **Java 17**
 - **Spring Boot** 3.x
-- **Maven**
-- **PostgreSQL** (production)
-- **H2** (testing)
-- **Spring Data JPA**, **Hibernate**
-- **MockMVC**, **JUnit 5**, **Mockito**
+- **Maven** (for dependency management)
+- **PostgreSQL** (for production database)
+- **H2 Database** (for in-memory testing and development)
+- **Spring Data JPA** (for repository pattern and data access)
+- **Hibernate** (ORM)
+- **MockMVC** (for integration tests)
+- **JUnit 5** (for unit tests)
+- **Mockito** (for mocking dependencies in tests)
+- **Postman** (for API testing)
 
 ## Features
-- **CRUD Operations** for managing games, bookings, and events.
-- **Dynamic Search** for events by name, game type, and date with pagination.
-- **Input Validation** for consistent data handling.
-- **Centralized Error Handling** with custom exceptions.
+CRUD Operations:
+- Manage board games (add, update, delete, and retrieve games).
+- Manage table bookings for customers.
+- Manage special game night events (search, create, update, delete).
+
+Dynamic Search:
+- Search events based on event name, game type, and event date with support for pagination.
+
+Input Validation:
+- Validates incoming data (e.g., game name cannot be blank, event date cannot be in the past).
+
+Error Handling:
+- Centralized exception handling with custom error messages and proper HTTP status codes.
 
 ## Project Structure
 ```bash

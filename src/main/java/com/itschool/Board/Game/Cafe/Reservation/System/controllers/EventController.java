@@ -24,33 +24,38 @@ public class EventController {
     @PostMapping
     public ResponseEntity<EventDTO> createEvent(@Valid @RequestBody EventDTO eventDTO) {
         EventDTO createdEvent = eventService.saveEvent(eventDTO);
+
         return ResponseEntity.ok(eventService.saveEvent(eventDTO));
     }
 
-    @Operation(summary = "Retrieve and list all events")
+    @Operation(summary = "Get and list all events")
     @GetMapping
     public ResponseEntity<List<EventDTO>> getAllEvents() {
         List<EventDTO> events = eventService.findAllEvents();
+
         return ResponseEntity.ok(eventService.findAllEvents());
     }
 
-    @Operation(summary = "Retrieve an event by ID")
+    @Operation(summary = "Get an event by ID")
     @GetMapping("/{id}")
     public ResponseEntity<EventDTO> getEventById(@PathVariable Long id) {
         EventDTO event = eventService.findEventById(id);
+
         return ResponseEntity.ok(eventService.findEventById(id));
     }
 
-    @Operation(summary = "Retrieve an event by name")
+    @Operation(summary = "Get an event by name")
     @GetMapping("/name")
     public ResponseEntity<List<EventDTO>> getEventsByName(@RequestParam String name) {
         List<EventDTO> events = eventService.findEventByName(name);
+
         return ResponseEntity.ok(eventService.findEventByName(name));
     }
 
-    @Operation(summary = "Retrieve an event by date")
+    @Operation(summary = "Get an event by date")
     @GetMapping("/date")
     public ResponseEntity<List<EventDTO>> getEventsByDate(@RequestParam("date") LocalDate eventDate) {
+
         return ResponseEntity.ok(eventService.findByEventDate(eventDate));
     }
 
@@ -65,9 +70,10 @@ public class EventController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
+
         return ResponseEntity.noContent().build();
     }
-
+}
 //    @Operation(summary = "Get all filtered events by name, date and participants")
 //    @ApiResponses(value = {
 //            @ApiResponse(responseCode = "200", description = "Found the books",
@@ -82,4 +88,3 @@ public class EventController {
 //            @RequestParam(value = "event date", required = false) LocalDate eventDate) {
 //        return ResponseEntity.ok(eventService.getEvents(name, eventDate));
 //    }
-}
