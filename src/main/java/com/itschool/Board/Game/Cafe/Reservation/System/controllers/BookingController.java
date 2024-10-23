@@ -59,6 +59,7 @@ public class BookingController {
     @Operation(summary = "Get bookings by customer name")
     @GetMapping("/name")
     public ResponseEntity<List<BookingDTO>> getBookingsByCustomerName(@RequestParam String customerName) {
+
         return ResponseEntity.ok(bookingService.findBookingByCustomerName(customerName));
     }
 

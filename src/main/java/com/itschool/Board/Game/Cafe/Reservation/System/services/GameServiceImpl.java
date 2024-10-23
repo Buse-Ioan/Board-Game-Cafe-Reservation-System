@@ -32,6 +32,7 @@ public class GameServiceImpl implements GameService {
         Game game = objectMapper.convertValue(gameDTO, Game.class);
         Game createdGame = gameRepository.save(game);
         log.info("Game saved successfully with ID: {}", createdGame.getId());
+
         // Return the saved entity as a DTO
         return objectMapper.convertValue(createdGame, GameDTO.class);
     }
@@ -63,6 +64,7 @@ public class GameServiceImpl implements GameService {
     public GameDTO updateGame(Long id, GameDTO gameDTO) {
         Game existingGame = gameRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Game not found with ID: " + id));
+
         existingGame.setName(gameDTO.getName());
         existingGame.setGenre(gameDTO.getGenre());
         existingGame.setMinPlayers(gameDTO.getMinPlayers());

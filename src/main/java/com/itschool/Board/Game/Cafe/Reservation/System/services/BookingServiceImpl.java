@@ -77,6 +77,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDTO> findBookingByCustomerName(String customerName) {
         List<Booking> bookings = bookingRepository.findByCustomerNameContainingIgnoreCase(customerName);
+
         return bookings.stream()
                 .map(booking -> objectMapper.convertValue(booking, BookingDTO.class))
                 .collect(Collectors.toList());
