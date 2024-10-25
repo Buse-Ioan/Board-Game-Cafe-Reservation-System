@@ -2,33 +2,21 @@ package com.itschool.Board.Game.Cafe.Reservation.System.integration_tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.EventDTO;
-import com.itschool.Board.Game.Cafe.Reservation.System.models.entities.Event;
-import com.itschool.Board.Game.Cafe.Reservation.System.repositories.EventRepository;
-import com.itschool.Board.Game.Cafe.Reservation.System.services.EventService;
-import com.itschool.Board.Game.Cafe.Reservation.System.services.EventServiceImpl;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
