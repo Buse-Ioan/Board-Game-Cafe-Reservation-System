@@ -33,7 +33,6 @@ public class GameServiceImpl implements GameService {
         Game createdGame = gameRepository.save(game);
         log.info("Game saved successfully with ID: {}", createdGame.getId());
 
-        // Return the saved entity as a DTO
         return objectMapper.convertValue(createdGame, GameDTO.class);
     }
 
@@ -42,7 +41,6 @@ public class GameServiceImpl implements GameService {
         List<Game> games = gameRepository.findAll();
         log.info("Found {} games", games.size());
 
-        // Map all Game entities to GameDTOs using ObjectMapper
         return games.stream()
                 .map(game -> objectMapper.convertValue(game, GameDTO.class))
                 .collect(Collectors.toList());

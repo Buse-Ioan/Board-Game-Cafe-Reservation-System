@@ -84,7 +84,7 @@ public class EventServiceImpl implements EventService {
         existingEvent.setName(eventDTO.getName());
         existingEvent.setEventDate(eventDTO.getEventDate());
         existingEvent.setParticipants(eventDTO.getParticipants());
-        existingEvent.setGameCategory(eventDTO.getGameCategory());
+        existingEvent.setGameGenre(eventDTO.getGameGenre());
 
         Event updatedEvent = eventRepository.save(existingEvent);
         log.info("Event updated successfully: {}", updatedEvent.getName());

@@ -46,9 +46,8 @@ public class GameController {
     @Operation(summary = "Get a game by name")
     @GetMapping("/name")
     public ResponseEntity<List<GameDTO>> findGameByName(@RequestParam("name") String name) {
-        List<GameDTO> games = gameService.findGameByName(name);
 
-        return ResponseEntity.ok(games);
+        return ResponseEntity.ok(gameService.findGameByName(name));
     }
 
     @Operation(summary = "Update an existing game by ID")

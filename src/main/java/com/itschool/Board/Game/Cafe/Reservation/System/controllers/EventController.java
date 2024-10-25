@@ -47,7 +47,6 @@ public class EventController {
     @Operation(summary = "Get an event by name")
     @GetMapping("/name")
     public ResponseEntity<List<EventDTO>> getEventsByName(@RequestParam String name) {
-        List<EventDTO> events = eventService.findEventByName(name);
 
         return ResponseEntity.ok(eventService.findEventByName(name));
     }
@@ -75,12 +74,12 @@ public class EventController {
         return ResponseEntity.noContent().build();
     }
 }
-//    @Operation(summary = "Get all filtered events by name, date and participants")
+//    @Operation(summary = "Get all filtered events by name, date")
 //    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Found the books",
+//            @ApiResponse(responseCode = "200", description = "Found the events",
 //                    content = { @Content(mediaType = "application/json",
 //                            schema = @Schema(implementation = Event.class)) }),
-//            @ApiResponse(responseCode = "404", description = "Books not found",
+//            @ApiResponse(responseCode = "404", description = "Events not found",
 //                    content = @Content) })
 
 //    @GetMapping

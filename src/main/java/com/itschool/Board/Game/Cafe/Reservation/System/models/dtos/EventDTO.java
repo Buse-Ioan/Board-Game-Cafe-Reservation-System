@@ -22,5 +22,7 @@ public class EventDTO {
     @Max(value = 10, message = "The maximum number of participants cannot exceed 10")
     private int participants;
 
-    private String gameCategory;
+    private String gameGenre;
+
+    private String description;
 }
