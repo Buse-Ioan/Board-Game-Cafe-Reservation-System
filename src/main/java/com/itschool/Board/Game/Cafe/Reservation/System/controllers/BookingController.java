@@ -1,6 +1,7 @@
 package com.itschool.Board.Game.Cafe.Reservation.System.controllers;
 
 import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.BookingDTO;
+import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.EventDTO;
 import com.itschool.Board.Game.Cafe.Reservation.System.services.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

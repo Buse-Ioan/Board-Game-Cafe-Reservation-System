@@ -23,7 +23,6 @@ public class EventController {
     @Operation(summary = "Create a new event")
     @PostMapping
     public ResponseEntity<EventDTO> createEvent(@Valid @RequestBody EventDTO eventDTO) {
-        EventDTO createdEvent = eventService.createEvent(eventDTO);
 
         return ResponseEntity.ok(eventService.createEvent(eventDTO));
     }
