@@ -34,13 +34,12 @@ public class EventControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testCreateEvent() throws Exception {
+    void testCreateEvent() throws Exception {
         EventDTO eventDTO = new EventDTO();
-        eventDTO.setId(1L);
         eventDTO.setName("Catan Tournament");
+        eventDTO.setEventDate(LocalDate.now());
+        eventDTO.setParticipants(8);
         eventDTO.setGameGenre("Strategy");
-        eventDTO.setEventDate(LocalDate.of(2024, 10, 30));
-        eventDTO.setParticipants(10);
         eventDTO.setDescription("The tournament will take place over two days with an initial round and a final.");
 
         mockMvc.perform(post("/api/events")

@@ -22,44 +22,38 @@ public class BookingController {
     }
 
     @Operation(summary = "Create a new booking")
-    @PostMapping("/api/bookings")
+    @PostMapping
     public ResponseEntity<BookingDTO> createBooking(@Valid @RequestBody BookingDTO bookingDTO) {
-
         return ResponseEntity.ok(bookingService.createBooking(bookingDTO));
     }
 
     @Operation(summary = "Get a list of all bookings")
     @GetMapping
     public ResponseEntity<List<BookingDTO>> getAllBookings() {
-
         return ResponseEntity.ok(bookingService.findAllBookings());
     }
 
     @Operation(summary = "Get a booking by ID")
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
-
         return ResponseEntity.ok(bookingService.findBookingById(id));
     }
 
     @Operation(summary = "Get a booking by email")
-    @GetMapping("/email")
-    public ResponseEntity<List<BookingDTO>> getBookingsByCustomerEmail(@RequestParam String customerEmail) {
-
-        return ResponseEntity.ok(bookingService.findBookingByCustomerEmail(customerEmail));
+    @GetMapping("/email/{email}")
+    public ResponseEntity<List<BookingDTO>> getBookingsByCustomerEmail(@PathVariable String email) {
+        return ResponseEntity.ok(bookingService.findBookingByCustomerEmail(email));
     }
 
     @Operation(summary = "Get a booking by date")
-    @GetMapping("/by-date")
-    public ResponseEntity<List<BookingDTO>> getBookingsByDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate bookingDate) {
-
-        return ResponseEntity.ok(bookingService.findByBookingDate(bookingDate));
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<BookingDTO>> getBookingsByDate(@PathVariable LocalDate date) {
+        return ResponseEntity.ok(bookingService.findByBookingDate(date));
     }
 
     @Operation(summary = "Get bookings by customer name")
-    @GetMapping("/name")
-    public ResponseEntity<List<BookingDTO>> getBookingsByCustomerName(@RequestParam String customerName) {
-
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<BookingDTO>> getBookingsByCustomerName(@PathVariable String customerName) {
         return ResponseEntity.ok(bookingService.findBookingByCustomerName(customerName));
     }
 
@@ -68,7 +62,6 @@ public class BookingController {
     public ResponseEntity<BookingDTO> updateBooking(
             @PathVariable Long id,
             @Valid @RequestBody BookingDTO bookingDTO) {
-
         return ResponseEntity.ok(bookingService.updateBooking(id, bookingDTO));
     }
 
@@ -76,7 +69,8 @@ public class BookingController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
         bookingService.deleteBooking(id);
-
         return ResponseEntity.noContent().build();
     }
+
+
 }

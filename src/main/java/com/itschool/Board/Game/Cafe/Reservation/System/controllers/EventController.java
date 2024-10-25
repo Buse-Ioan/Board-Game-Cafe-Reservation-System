@@ -23,7 +23,6 @@ public class EventController {
     @Operation(summary = "Create a new event")
     @PostMapping
     public ResponseEntity<EventDTO> createEvent(@Valid @RequestBody EventDTO eventDTO) {
-
         return ResponseEntity.ok(eventService.createEvent(eventDTO));
     }
 
@@ -31,7 +30,6 @@ public class EventController {
     @GetMapping
     public ResponseEntity<List<EventDTO>> getAllEvents() {
         List<EventDTO> events = eventService.findAllEvents();
-
         return ResponseEntity.ok(eventService.findAllEvents());
     }
 
@@ -39,21 +37,18 @@ public class EventController {
     @GetMapping("/{id}")
     public ResponseEntity<EventDTO> getEventById(@PathVariable Long id) {
         EventDTO event = eventService.findEventById(id);
-
         return ResponseEntity.ok(eventService.findEventById(id));
     }
 
     @Operation(summary = "Get an event by name")
     @GetMapping("/name")
     public ResponseEntity<List<EventDTO>> getEventsByName(@RequestParam String name) {
-
         return ResponseEntity.ok(eventService.findEventByName(name));
     }
 
     @Operation(summary = "Get an event by date")
     @GetMapping("/date")
     public ResponseEntity<List<EventDTO>> getEventsByDate(@RequestParam("date") LocalDate eventDate) {
-
         return ResponseEntity.ok(eventService.findByEventDate(eventDate));
     }
 
@@ -61,7 +56,6 @@ public class EventController {
     @PutMapping("/{id}")
     public ResponseEntity<EventDTO> updateEvent(@PathVariable Long id, @Valid @RequestBody EventDTO eventDTO) {
         EventDTO updatedEvent = eventService.updateEvent(id, eventDTO);
-
         return ResponseEntity.ok(eventService.updateEvent(id, eventDTO));
     }
 
@@ -69,7 +63,6 @@ public class EventController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
-
         return ResponseEntity.noContent().build();
     }
 }

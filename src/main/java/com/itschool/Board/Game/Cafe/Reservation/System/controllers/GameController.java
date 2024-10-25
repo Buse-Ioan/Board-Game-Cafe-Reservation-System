@@ -25,35 +25,30 @@ public class GameController {
     @Operation(summary = "Create a new game")
     @PostMapping
     public ResponseEntity<GameDTO> createGame(@Valid @RequestBody GameDTO gameDTO) {
-
         return ResponseEntity.ok(gameService.createGame(gameDTO));
     }
 
     @Operation(summary = "Get a list of all games")
     @GetMapping
     public ResponseEntity<List<GameDTO>> getAllGames() {
-
         return ResponseEntity.ok(gameService.findAllGames());
     }
 
     @Operation(summary = "Get a game by ID")
     @GetMapping("/{id}")
     public ResponseEntity<GameDTO> getGameById(@PathVariable Long id) {
-
         return ResponseEntity.ok(gameService.findGameById(id));
     }
 
     @Operation(summary = "Get a game by name")
     @GetMapping("/name")
     public ResponseEntity<List<GameDTO>> findGameByName(@RequestParam("name") String name) {
-
         return ResponseEntity.ok(gameService.findGameByName(name));
     }
 
     @Operation(summary = "Update an existing game by ID")
     @PutMapping("/{id}")
     public ResponseEntity<GameDTO> updateGame(@PathVariable Long id, @RequestBody GameDTO gameDTO) {
-
         return ResponseEntity.ok(gameService.updateGame(id, gameDTO));
     }
 
@@ -61,7 +56,6 @@ public class GameController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGameById(@PathVariable Long id) {
         gameService.deleteGameById(id);
-
         return ResponseEntity.noContent().build();
     }
 }

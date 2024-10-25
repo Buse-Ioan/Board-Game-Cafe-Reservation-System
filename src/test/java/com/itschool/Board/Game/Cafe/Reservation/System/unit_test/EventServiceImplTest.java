@@ -30,9 +30,8 @@ public class EventServiceImplTest {
     private EventServiceImpl eventService;
 
     @Test
-    public void testCreateEvent() {
+    void testCreateEvent() {
         EventDTO eventDTO = new EventDTO();
-        eventDTO.setId(1L);
         eventDTO.setName("Catan Tournament");
         eventDTO.setGameGenre("Strategy");
         eventDTO.setEventDate(LocalDate.of(2024, 10, 30));
