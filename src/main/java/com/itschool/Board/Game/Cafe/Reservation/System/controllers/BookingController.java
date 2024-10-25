@@ -23,7 +23,7 @@ public class BookingController {
 
     @Operation(summary = "Create a new booking")
     @PostMapping("/api/bookings")
-    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
+    public ResponseEntity<BookingDTO> createBooking(@Valid @RequestBody BookingDTO bookingDTO) {
 
         return ResponseEntity.ok(bookingService.createBooking(bookingDTO));
     }
@@ -65,7 +65,9 @@ public class BookingController {
 
     @Operation(summary = "Update an existing booking by ID")
     @PutMapping("/{id}")
-    public ResponseEntity<BookingDTO> updateBooking(@PathVariable Long id, @Valid @RequestBody BookingDTO bookingDTO) {
+    public ResponseEntity<BookingDTO> updateBooking(
+            @PathVariable Long id,
+            @Valid @RequestBody BookingDTO bookingDTO) {
 
         return ResponseEntity.ok(bookingService.updateBooking(id, bookingDTO));
     }
