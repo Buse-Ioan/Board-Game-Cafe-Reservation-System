@@ -1,4 +1,4 @@
-package com.itschool.Board.Game.Cafe.Reservation.System.unit_tests.test_mock_injection;
+package com.itschool.Board.Game.Cafe.Reservation.System.unit_test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.EventDTO;
@@ -46,7 +46,6 @@ public class EventServiceImplTest {
         eventEntity.setParticipants(10);
         eventEntity.setGameGenre("Strategy");
         eventEntity.setDescription("The tournament will take place over two days with an initial round and a final.");
-
 
         when(eventRepository.save(any(Event.class))).thenReturn(eventEntity);
         when(objectMapper.convertValue(eventDTO, Event.class)).thenReturn(eventEntity);

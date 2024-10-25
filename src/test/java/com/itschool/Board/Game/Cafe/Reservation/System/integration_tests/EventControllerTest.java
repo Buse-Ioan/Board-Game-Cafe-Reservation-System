@@ -2,11 +2,17 @@ package com.itschool.Board.Game.Cafe.Reservation.System.integration_tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.EventDTO;
+import com.itschool.Board.Game.Cafe.Reservation.System.models.entities.Event;
+import com.itschool.Board.Game.Cafe.Reservation.System.repositories.EventRepository;
 import com.itschool.Board.Game.Cafe.Reservation.System.services.EventService;
+import com.itschool.Board.Game.Cafe.Reservation.System.services.EventServiceImpl;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,8 +24,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,7 +52,7 @@ public class EventControllerTest {
         eventDTO.setName("Catan Tournament");
         eventDTO.setGameGenre("Strategy");
         eventDTO.setEventDate(LocalDate.of(2024, 10, 30));
-        eventDTO.setParticipants(30);
+        eventDTO.setParticipants(10);
         eventDTO.setDescription("The tournament will take place over two days with an initial round and a final.");
 
         when(eventService.createEvent(any(EventDTO.class))).thenReturn(eventDTO);
@@ -57,7 +64,53 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.name").value("Catan Tournament"))
                 .andExpect(jsonPath("$.gameGenre").value("Strategy"))
                 .andExpect(jsonPath("$.eventDate").value("2024-10-30"))
-                .andExpect(jsonPath("$.participants").value(30))
+                .andExpect(jsonPath("$.participants").value(10))
                 .andExpect(jsonPath("$.description").value("The tournament will take place over two days with an initial round and a final."));
+    }
+
+    @ExtendWith(MockitoExtension.class)
+    public static class EventServiceImplTest {
+
+        @Mock
+        private ObjectMapper objectMapper;
+
+        @Mock
+        private EventRepository eventRepository;
+
+        @InjectMocks
+        private EventServiceImpl eventService;
+
+        @Test
+        public void testCreateEvent() {
+            EventDTO eventDTO = new EventDTO();
+            eventDTO.setId(1L);
+            eventDTO.setName("Catan Tournament");
+            eventDTO.setGameGenre("Strategy");
+            eventDTO.setEventDate(LocalDate.of(2024, 10, 30));
+            eventDTO.setParticipants(10);  // Assuming this field exists
+            eventDTO.setDescription("The tournament will take place over two days with an initial round and a final.");
+
+            Event eventEntity = new Event();
+            eventEntity.setId(1L);
+            eventEntity.setName("Catan Tournament");
+            eventEntity.setEventDate(LocalDate.of(2024, 10, 30));
+            eventEntity.setParticipants(10);
+            eventEntity.setGameGenre("Strategy");
+            eventEntity.setDescription("The tournament will take place over two days with an initial round and a final.");
+
+
+            when(eventRepository.save(any(Event.class))).thenReturn(eventEntity);
+            when(objectMapper.convertValue(eventDTO, Event.class)).thenReturn(eventEntity);
+            when(objectMapper.convertValue(eventEntity, EventDTO.class)).thenReturn(eventDTO);
+
+            EventDTO createdEvent = eventService.createEvent(eventDTO);
+
+            verify(eventRepository, times(1)).save(eventEntity)
+            assertEquals("Catan Tournament", createdEvent.getName());
+            assertEquals("Strategy", createdEvent.getGameGenre());
+            assertEquals(LocalDate.of(2024, 10, 30), createdEvent.getEventDate());
+            assertEquals(10, createdEvent.getParticipants());
+            assertEquals("The tournament will take place over two days with an initial round and a final.", createdEvent.getDescription());
+        }
     }
 }
