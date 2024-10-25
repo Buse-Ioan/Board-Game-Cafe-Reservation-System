@@ -39,7 +39,6 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(objectToString(Map.of("message", eventNotFoundException.getMessage())), NOT_FOUND);
     }
 
-    // Handle validation errors (MethodArgumentNotValidException)
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         Map<String, String> errors = new HashMap<>();
@@ -51,7 +50,6 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(objectToString(errors), BAD_REQUEST);
     }
 
-    // Helper method to convert map to JSON
     private String objectToString(Object response) {
         try {
             return objectMapper.writeValueAsString(response);
