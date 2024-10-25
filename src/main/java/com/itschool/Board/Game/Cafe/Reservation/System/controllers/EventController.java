@@ -74,17 +74,3 @@ public class EventController {
         return ResponseEntity.noContent().build();
     }
 }
-//    @Operation(summary = "Get all filtered events by name, date")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Found the events",
-//                    content = { @Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = Event.class)) }),
-//            @ApiResponse(responseCode = "404", description = "Events not found",
-//                    content = @Content) })
-
-//    @GetMapping
-//    public ResponseEntity<List<EventDTO>> getEvents(
-//            @RequestParam(value = "name", required = false) String name,
-//            @RequestParam(value = "event date", required = false) LocalDate eventDate) {
-//        return ResponseEntity.ok(eventService.getEvents(name, eventDate));
-//    }

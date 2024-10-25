@@ -43,7 +43,7 @@ public class BookingController {
     }
 
     @Operation(summary = "Get a booking by email")
-        @GetMapping("/email")
+    @GetMapping("/email")
     public ResponseEntity<List<BookingDTO>> getBookingsByCustomerEmail(@RequestParam String customerEmail) {
 
         return ResponseEntity.ok(bookingService.findBookingByCustomerEmail(customerEmail));

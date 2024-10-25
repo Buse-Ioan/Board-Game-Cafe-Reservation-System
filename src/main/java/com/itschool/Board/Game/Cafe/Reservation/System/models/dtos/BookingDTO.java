@@ -1,8 +1,6 @@
 package com.itschool.Board.Game.Cafe.Reservation.System.models.dtos;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -20,10 +18,9 @@ public class BookingDTO {
     private String customerEmail;
 
     @NotNull(message = "Booking date is required")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate bookingDate;
 
-//    @Max(value = 20, message = "There cannot be more than 20 people for a booking")
-//    @Min(value = 1, message = "At least one person is required")
+    @Max(value = 20, message = "There cannot be more than 20 people for a booking")
+    @Min(value = 1, message = "At least one person is required")
     private int numberOfPeople;
 }

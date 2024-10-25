@@ -16,7 +16,6 @@ public class Event {
     @Column(name = "event_id")
     private Long id;
 
-    @NotBlank(message = "Event name cannot be blank")
     @Column(name = "event_name")
     private String name;
 
