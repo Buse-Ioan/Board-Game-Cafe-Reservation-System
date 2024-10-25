@@ -53,7 +53,7 @@ public class EventServiceImplTest {
 
         EventDTO createdEvent = eventService.createEvent(eventDTO);
 
-        verify(eventRepository, times(1)).save(eventEntity)
+        verify(eventRepository, times(1)).save(eventEntity);
         assertEquals("Catan Tournament", createdEvent.getName());
         assertEquals("Strategy", createdEvent.getGameGenre());
         assertEquals(LocalDate.of(2024, 10, 30), createdEvent.getEventDate());
