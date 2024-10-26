@@ -1,4 +1,4 @@
-# Business Domain: Board Game Cafe Reservation System
+# Board Game Cafe Reservation System
 
 The Board Game Café Reservation System is a Spring Boot-based web application designed to manage table bookings, game library inventories, and special game night events for a board game café.
 This application provides a simple API for creating, updating, and retrieving information about games, events, and table bookings. The app also includes dynamic search functionality for events based on name, game type, and event date.
