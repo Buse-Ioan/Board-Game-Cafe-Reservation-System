@@ -37,7 +37,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<GameDTO> findAllGames() {
+    public List<GameDTO> getAllGames() {
         List<Game> games = gameRepository.findAll();
         log.info("Found {} games", games.size());
 
@@ -47,7 +47,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public GameDTO findGameById(Long id) {
+    public GameDTO getGameById(Long id) {
         Game game = gameRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Game not found with ID: " + id));
         log.info("Game found: {}", game.getName());
@@ -55,9 +55,18 @@ public class GameServiceImpl implements GameService {
         return objectMapper.convertValue(game, GameDTO.class);
     }
 
+    @Override
+    public List<GameDTO> getGameByName(String name) {
+        List<Game> games = gameRepository.findByNameContainingIgnoreCase(name);
+        log.info("Found {} games with name: {}", games.size(), name);
+
+        return games.stream()
+                .map(game -> objectMapper.convertValue(game, GameDTO.class))
+                .collect(Collectors.toList());
+    }
 
     @Override
-    public List<GameDTO> findGameByGenre(String genre) {
+    public List<GameDTO> getGameByGenre(String genre) {
         List<Game> games = gameRepository.findByGenre(genre);
         log.info("Found {} games with genre: {}", games.size(), genre);
 
@@ -88,16 +97,5 @@ public class GameServiceImpl implements GameService {
 
         gameRepository.deleteById(id);
         log.info("Game deleted successfully");
-    }
-
-
-    @Override
-    public List<GameDTO> findGameByName(String name) {
-        List<Game> games = gameRepository.findByNameContainingIgnoreCase(name);
-        log.info("Found {} games with name: {}", games.size(), name);
-
-        return games.stream()
-                .map(game -> objectMapper.convertValue(game, GameDTO.class))
-                .collect(Collectors.toList());
     }
 }

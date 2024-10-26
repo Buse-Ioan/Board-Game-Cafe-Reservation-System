@@ -29,26 +29,25 @@ public class EventController {
     @Operation(summary = "Get a list of all events")
     @GetMapping
     public ResponseEntity<List<EventDTO>> getAllEvents() {
-        List<EventDTO> events = eventService.findAllEvents();
-        return ResponseEntity.ok(eventService.findAllEvents());
+        return ResponseEntity.ok(eventService.getAllEvents());
     }
 
     @Operation(summary = "Get an event by ID")
     @GetMapping("/id/{id}")
     public ResponseEntity<EventDTO> getEventById(@PathVariable Long id) {
-        return ResponseEntity.ok(eventService.findEventById(id));
+        return ResponseEntity.ok(eventService.getEventById(id));
     }
 
     @Operation(summary = "Get an event by name")
     @GetMapping("/name/{name}")
     public ResponseEntity<List<EventDTO>> getEventsByName(@PathVariable String name) {
-        return ResponseEntity.ok(eventService.findEventByName(name));
+        return ResponseEntity.ok(eventService.getEventByName(name));
     }
 
     @Operation(summary = "Get an event by date")
     @GetMapping("/date/{date}")
     public ResponseEntity<List<EventDTO>> getEventsByDate(@PathVariable LocalDate date) {
-        return ResponseEntity.ok(eventService.findByEventDate(date));
+        return ResponseEntity.ok(eventService.getByEventDate(date));
     }
 
     @Operation(summary = "Update an existing event by ID")

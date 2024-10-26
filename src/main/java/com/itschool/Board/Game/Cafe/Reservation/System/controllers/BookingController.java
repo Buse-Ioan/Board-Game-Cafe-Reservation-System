@@ -30,31 +30,31 @@ public class BookingController {
     @Operation(summary = "Get a list of all bookings")
     @GetMapping
     public ResponseEntity<List<BookingDTO>> getAllBookings() {
-        return ResponseEntity.ok(bookingService.findAllBookings());
+        return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
     @Operation(summary = "Get a booking by ID")
     @GetMapping("/id/{id}")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
-        return ResponseEntity.ok(bookingService.findBookingById(id));
+        return ResponseEntity.ok(bookingService.getBookingById(id));
     }
 
     @Operation(summary = "Get a booking by email")
     @GetMapping("/email/{email}")
-    public ResponseEntity<List<BookingDTO>> getBookingsByCustomerEmail(@PathVariable String email) {
-        return ResponseEntity.ok(bookingService.findBookingByEmail(email));
+    public ResponseEntity<List<BookingDTO>> getBookingsByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(bookingService.getBookingByEmail(email));
     }
 
     @Operation(summary = "Get a booking by date")
     @GetMapping("/date/{date}")
     public ResponseEntity<List<BookingDTO>> getBookingsByDate(@PathVariable LocalDate date) {
-        return ResponseEntity.ok(bookingService.findByBookingDate(date));
+        return ResponseEntity.ok(bookingService.getByBookingDate(date));
     }
 
     @Operation(summary = "Get bookings by customer name")
     @GetMapping("/customer_name/{customerName}")
     public ResponseEntity<List<BookingDTO>> getBookingsByCustomerName(@PathVariable String customerName) {
-        return ResponseEntity.ok(bookingService.findBookingByCustomerName(customerName));
+        return ResponseEntity.ok(bookingService.getBookingByCustomerName(customerName));
     }
 
     @Operation(summary = "Update an existing booking by ID")

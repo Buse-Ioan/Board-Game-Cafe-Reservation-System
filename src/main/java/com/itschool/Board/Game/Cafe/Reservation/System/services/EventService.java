@@ -10,17 +10,17 @@ public interface EventService {
 
     EventDTO createEvent(EventDTO eventDTO);
 
-    List<EventDTO> findAllEvents();
+    List<EventDTO> getAllEvents();
 
-    EventDTO findEventById(Long id);
+    EventDTO getEventById(Long id);
 
-    List<EventDTO> findEventByName(String name);
+    List<EventDTO> getEventByName(String name);
 
     EventDTO updateEvent(Long id, EventDTO eventDTO);
 
     void deleteEvent(Long id);
 
-    List<EventDTO> findByEventDate(LocalDate eventDate);
+    List<EventDTO> getByEventDate(LocalDate eventDate);
 
     List<EventDTO> getEvents(String name, String genre);
 }

@@ -38,7 +38,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDTO> findAllBookings() {
+    public List<BookingDTO> getAllBookings() {
         List<Booking> bookings = bookingRepository.findAll();
         log.info("Found {} table bookings", bookings.size());
 
@@ -48,7 +48,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDTO findBookingById(Long id) {
+    public BookingDTO getBookingById(Long id) {
         Booking booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Booking not found with ID: " + id));
         log.info("Booking found: {}", booking.getCustomerName());
@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDTO> findBookingByEmail(String email) {
+    public List<BookingDTO> getBookingByEmail(String email) {
         List<Booking> bookings = bookingRepository.findBookingByEmail(email);
         log.info("Found {} bookings for customer email: {}", bookings.size(), email);
 
@@ -67,7 +67,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDTO> findByBookingDate(LocalDate bookingDate) {
+    public List<BookingDTO> getByBookingDate(LocalDate bookingDate) {
         List<Booking> bookings = bookingRepository.findByBookingDate(bookingDate);
 
         return bookings.stream()
@@ -76,7 +76,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDTO> findBookingByCustomerName(String customerName) {
+    public List<BookingDTO> getBookingByCustomerName(String customerName) {
         List<Booking> bookings = bookingRepository.findByCustomerNameContainingIgnoreCase(customerName);
 
         return bookings.stream()
@@ -118,5 +118,4 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.deleteById(id);
         log.info("Booking deleted successfully");
     }
-
 }

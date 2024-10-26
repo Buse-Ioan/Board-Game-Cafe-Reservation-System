@@ -38,7 +38,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDTO> findAllEvents() {
+    public List<EventDTO> getAllEvents() {
         List<Event> events = eventRepository.findAll();
         log.info("Found {} events", events.size());
 
@@ -48,7 +48,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDTO findEventById(Long id) {
+    public EventDTO getEventById(Long id) {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Event not found with ID: " + id));
         log.info("Event found: {}", event.getName());
@@ -57,7 +57,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDTO> findEventByName(String name) {
+    public List<EventDTO> getEventByName(String name) {
         List<Event> events = eventRepository.findEventByName(name);
         log.info("Found {} events with name: {}", events.size(), name);
 
@@ -67,12 +67,23 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDTO> findByEventDate(LocalDate eventDate) {
+    public List<EventDTO> getByEventDate(LocalDate eventDate) {
         List<Event> events = eventRepository.findByEventDate(eventDate);
 
         return events.stream()
                 .map(event -> objectMapper.convertValue(event, EventDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EventDTO> getEvents(String name, String genre) {
+        Specification<Event> spec = Specification
+                .where(EventSpecification.nameContains(name))
+                .and(EventSpecification.genreContains(genre));
+
+        return eventRepository.findAll(spec).stream()
+                .map(event -> objectMapper.convertValue(event, EventDTO.class))
+                .toList();
     }
 
     @Override
@@ -97,16 +108,5 @@ public class EventServiceImpl implements EventService {
                 .orElseThrow(() -> new GameNotFoundException("Event not found with ID: " + id));
         eventRepository.deleteById(id);
         log.info("Event deleted successfully");
-    }
-
-    @Override
-    public List<EventDTO> getEvents(String name, String genre) {
-        Specification<Event> spec = Specification
-                .where(EventSpecification.nameContains(name))
-                .and(EventSpecification.genreContains(genre));
-
-        return eventRepository.findAll(spec).stream()
-                .map(event -> objectMapper.convertValue(event, EventDTO.class))
-                .toList();
     }
 }

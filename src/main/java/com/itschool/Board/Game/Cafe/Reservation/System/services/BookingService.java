@@ -9,19 +9,19 @@ public interface BookingService {
 
     BookingDTO createBooking(BookingDTO bookingDTO);
 
-    List<BookingDTO> findAllBookings();
+    List<BookingDTO> getAllBookings();
 
-    BookingDTO findBookingById(Long id);
+    BookingDTO getBookingById(Long id);
 
-    List<BookingDTO> findBookingByEmail(String Email);
+    List<BookingDTO> getBookingByEmail(String Email);
 
-    List<BookingDTO> findByBookingDate(LocalDate reservationDate);
+    List<BookingDTO> getByBookingDate(LocalDate reservationDate);
 
     BookingDTO updateBooking(Long id, BookingDTO bookingDTO);
 
     void deleteBooking(Long id);
 
-    List<BookingDTO> findBookingByCustomerName(String customerName);
+    List<BookingDTO> getBookingByCustomerName(String customerName);
 
     List<BookingDTO> getBookings(String name, String email);
 }

@@ -8,15 +8,15 @@ public interface GameService {
 
     GameDTO createGame(GameDTO gameDTO);
 
-    List<GameDTO> findAllGames();
+    List<GameDTO> getAllGames();
 
-    GameDTO findGameById(Long id);
+    GameDTO getGameById(Long id);
 
     GameDTO updateGame(Long id, GameDTO gameDTO);
 
     void deleteGameById(Long id);
 
-    List<GameDTO> findGameByName(String name);
+    List<GameDTO> getGameByName(String name);
 
-    List<GameDTO> findGameByGenre(String genre);
+    List<GameDTO> getGameByGenre(String genre);
 }
