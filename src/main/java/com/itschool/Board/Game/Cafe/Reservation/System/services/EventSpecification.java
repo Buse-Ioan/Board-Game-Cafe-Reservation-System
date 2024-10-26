@@ -12,6 +12,6 @@ public class EventSpecification {
 
     public static Specification<Event> genreContains(String genre) {
         return (event, query, criteriaBuilder) -> genre == null ? null :
-                        criteriaBuilder.like(criteriaBuilder.lower(event.get("gameGenre")), "%" + genre.toLowerCase() + "%");
+                        criteriaBuilder.like(criteriaBuilder.lower(event.get("genre")), "%" + genre.toLowerCase() + "%");
     }
 }

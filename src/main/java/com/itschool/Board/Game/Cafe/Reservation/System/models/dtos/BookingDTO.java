@@ -15,7 +15,7 @@ public class BookingDTO {
 
     @NotBlank(message = "Customer email cannot be blank")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email should be valid")
-    private String customerEmail;
+    private String email;
 
     @NotNull(message = "Booking date is required")
     private LocalDate bookingDate;

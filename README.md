@@ -99,6 +99,7 @@ The system offers the following functionalities:
 - GET /api/bookings/email/{email} - Get a booking by email.
 - GET /api/bookings/date/{date} - Get a booking by date.
 - GET /api/booking/customer_name/{customerName} -Get bookings by customer name.
+- GET /api/bookings/search/search?customerName={customerName&email={email} - Get all bookings by name and email filters
 - PUT /api/bookings/{id} - Update a booking.
 - DELETE /api/bookings/{id} - Delete a booking.
 

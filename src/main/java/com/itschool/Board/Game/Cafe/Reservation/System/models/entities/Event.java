@@ -24,8 +24,8 @@ public class Event {
     @Column(name = "participants", nullable = false)
     private int participants;
 
-    @Column(name = "game_genre", nullable = false)
-    private String gameGenre;
+    @Column(name = "genre", nullable = false)
+    private String genre;
 
     @Column(name = "description", nullable = false)
     private String description;

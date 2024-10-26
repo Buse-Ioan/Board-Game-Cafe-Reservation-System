@@ -13,7 +13,7 @@ public interface BookingService {
 
     BookingDTO findBookingById(Long id);
 
-    List<BookingDTO> findBookingByCustomerEmail(String customerEmail);
+    List<BookingDTO> findBookingByEmail(String Email);
 
     List<BookingDTO> findByBookingDate(LocalDate reservationDate);
 
@@ -22,4 +22,6 @@ public interface BookingService {
     void deleteBooking(Long id);
 
     List<BookingDTO> findBookingByCustomerName(String customerName);
+
+    List<BookingDTO> getBookings(String name, String email);
 }

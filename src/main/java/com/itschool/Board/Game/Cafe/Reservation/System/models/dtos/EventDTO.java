@@ -23,8 +23,8 @@ public class EventDTO {
     @Max(value = 10, message = "The maximum number of participants cannot exceed 10")
     private int participants;
 
-    @NotBlank(message = "Game genre cannot be blank")
-    private String gameGenre;
+    @NotBlank(message = "Event genre cannot be blank")
+    private String genre;
 
     @NotBlank(message = "Event description is required")
     private String description;

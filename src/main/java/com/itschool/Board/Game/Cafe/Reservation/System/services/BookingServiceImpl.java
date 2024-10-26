@@ -8,6 +8,7 @@ import com.itschool.Board.Game.Cafe.Reservation.System.repositories.BookingRepos
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -56,9 +57,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDTO> findBookingByCustomerEmail(String customerEmail) {
-        List<Booking> bookings = bookingRepository.findBookingByCustomerEmail(customerEmail);
-        log.info("Found {} bookings for customer email: {}", bookings.size(), customerEmail);
+    public List<BookingDTO> findBookingByEmail(String email) {
+        List<Booking> bookings = bookingRepository.findBookingByEmail(email);
+        log.info("Found {} bookings for customer email: {}", bookings.size(), email);
 
         return bookings.stream()
                 .map(booking -> objectMapper.convertValue(booking, BookingDTO.class))
@@ -84,12 +85,23 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public List<BookingDTO> getBookings(String customerName, String email) {
+        Specification<Booking> spec = Specification
+                .where(BookingSpecification.customerNameContains(customerName))
+                .and(BookingSpecification.emailContains(email));
+
+        return bookingRepository.findAll(spec).stream()
+                .map(booking -> objectMapper.convertValue(booking, BookingDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public BookingDTO updateBooking(Long id, BookingDTO bookingDTO) {
         Booking existingBooking = bookingRepository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException("Booking not found with ID: " + id));
 
         existingBooking.setCustomerName(bookingDTO.getCustomerName());
-        existingBooking.setCustomerEmail(bookingDTO.getCustomerEmail());
+        existingBooking.setEmail(bookingDTO.getEmail());
         existingBooking.setBookingDate(bookingDTO.getBookingDate());
         existingBooking.setNumberOfPeople(bookingDTO.getNumberOfPeople());
 
@@ -106,4 +118,5 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.deleteById(id);
         log.info("Booking deleted successfully");
     }
+
 }

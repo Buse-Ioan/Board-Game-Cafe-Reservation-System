@@ -1,6 +1,7 @@
 package com.itschool.Board.Game.Cafe.Reservation.System.controllers;
 
 import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.BookingDTO;
+import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.EventDTO;
 import com.itschool.Board.Game.Cafe.Reservation.System.services.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -41,7 +42,7 @@ public class BookingController {
     @Operation(summary = "Get a booking by email")
     @GetMapping("/email/{email}")
     public ResponseEntity<List<BookingDTO>> getBookingsByCustomerEmail(@PathVariable String email) {
-        return ResponseEntity.ok(bookingService.findBookingByCustomerEmail(email));
+        return ResponseEntity.ok(bookingService.findBookingByEmail(email));
     }
 
     @Operation(summary = "Get a booking by date")
@@ -67,5 +68,13 @@ public class BookingController {
     public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
         bookingService.deleteBooking(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Get all bookings by customer name and email filters")
+    @GetMapping("/search")
+    public ResponseEntity<List<BookingDTO>> getBookings(
+            @RequestParam(value = "customerName", required = false) String customerName,
+            @RequestParam(value = "email", required = false) String email) {
+        return ResponseEntity.ok(bookingService.getBookings(customerName, email));
     }
 }

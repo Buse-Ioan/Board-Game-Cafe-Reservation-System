@@ -17,8 +17,8 @@ public class Booking {
     @Column(name = "customer_name", nullable = false)
     private String customerName;
 
-    @Column(name = "customer_email", nullable = false)
-    private String customerEmail;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "booking_date", nullable = false)
     private LocalDate bookingDate;
