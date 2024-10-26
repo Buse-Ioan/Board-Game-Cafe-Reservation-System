@@ -53,10 +53,18 @@ public class GameServiceImpl implements GameService {
         log.info("Game found: {}", game.getName());
 
         return objectMapper.convertValue(game, GameDTO.class);
-
     }
 
 
+    @Override
+    public List<GameDTO> findGameByGenre(String genre) {
+        List<Game> games = gameRepository.findByGenre(genre);
+        log.info("Found {} games with genre: {}", games.size(), genre);
+
+        return games.stream()
+                .map(game -> objectMapper.convertValue(game, GameDTO.class))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public GameDTO updateGame(Long id, GameDTO gameDTO) {
@@ -82,15 +90,6 @@ public class GameServiceImpl implements GameService {
         log.info("Game deleted successfully");
     }
 
-    @Override
-    public List<GameDTO> findByGenre(String genre) {
-        List<Game> games = gameRepository.findByGenre(genre);
-        log.info("Found {} games with genre: {}", games.size(), genre);
-
-        return games.stream()
-                .map(game -> objectMapper.convertValue(game, GameDTO.class))
-                .collect(Collectors.toList());
-    }
 
     @Override
     public List<GameDTO> findGameByName(String name) {

@@ -35,15 +35,21 @@ public class GameController {
     }
 
     @Operation(summary = "Get a game by ID")
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<GameDTO> getGameById(@PathVariable Long id) {
         return ResponseEntity.ok(gameService.findGameById(id));
     }
 
     @Operation(summary = "Get a game by name")
-    @GetMapping("/name")
-    public ResponseEntity<List<GameDTO>> findGameByName(@RequestParam("name") String name) {
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<GameDTO>> findGameByName(@PathVariable String name) {
         return ResponseEntity.ok(gameService.findGameByName(name));
+    }
+
+    @Operation(summary = "Get a game by genre")
+    @GetMapping("/genre/{genre}")
+    public ResponseEntity<List<GameDTO>> findGameByGenre(@PathVariable String genre) {
+        return ResponseEntity.ok(gameService.findGameByGenre(genre));
     }
 
     @Operation(summary = "Update an existing game by ID")

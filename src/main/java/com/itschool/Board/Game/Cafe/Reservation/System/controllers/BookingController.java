@@ -4,7 +4,6 @@ import com.itschool.Board.Game.Cafe.Reservation.System.models.dtos.BookingDTO;
 import com.itschool.Board.Game.Cafe.Reservation.System.services.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,16 +51,14 @@ public class BookingController {
     }
 
     @Operation(summary = "Get bookings by customer name")
-    @GetMapping("/name/{name}")
+    @GetMapping("/customer_name/{customerName}")
     public ResponseEntity<List<BookingDTO>> getBookingsByCustomerName(@PathVariable String customerName) {
         return ResponseEntity.ok(bookingService.findBookingByCustomerName(customerName));
     }
 
     @Operation(summary = "Update an existing booking by ID")
     @PutMapping("/{id}")
-    public ResponseEntity<BookingDTO> updateBooking(
-            @PathVariable Long id,
-            @Valid @RequestBody BookingDTO bookingDTO) {
+    public ResponseEntity<BookingDTO> updateBooking(@PathVariable Long id, @Valid @RequestBody BookingDTO bookingDTO) {
         return ResponseEntity.ok(bookingService.updateBooking(id, bookingDTO));
     }
 
@@ -71,6 +68,4 @@ public class BookingController {
         bookingService.deleteBooking(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

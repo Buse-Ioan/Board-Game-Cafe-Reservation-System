@@ -18,5 +18,5 @@ public interface GameService {
 
     List<GameDTO> findGameByName(String name);
 
-    List<GameDTO> findByGenre(String genre);
+    List<GameDTO> findGameByGenre(String genre);
 }

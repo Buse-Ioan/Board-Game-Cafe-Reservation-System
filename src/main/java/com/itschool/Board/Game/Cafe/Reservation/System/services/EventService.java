@@ -22,7 +22,5 @@ public interface EventService {
 
     List<EventDTO> findByEventDate(LocalDate eventDate);
 
-//    List<EventDTO> getEvents(String name, LocalDate eventDate, int participants);
-
-//    List<EventDTO> getEvents(String name, LocalDate eventDate);
+    List<EventDTO> getEvents(String name, String genre);
 }

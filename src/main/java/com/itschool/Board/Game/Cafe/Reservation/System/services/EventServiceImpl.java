@@ -12,7 +12,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -99,22 +98,15 @@ public class EventServiceImpl implements EventService {
         eventRepository.deleteById(id);
         log.info("Event deleted successfully");
     }
+
+    @Override
+    public List<EventDTO> getEvents(String name, String genre) {
+        Specification<Event> spec = Specification
+                .where(EventSpecification.nameContains(name))
+                .and(EventSpecification.genreContains(genre));
+
+        return eventRepository.findAll(spec).stream()
+                .map(event -> objectMapper.convertValue(event, EventDTO.class))
+                .toList();
+    }
 }
-
-//    @Override
-//    public List<EventDTO> getEvents(String name, LocalDate eventDate) {
-//        Specification<Event> spec = Specification
-//                .where(EventSpecification.nameContains(name))
-//                .and(EventSpecification.eventDateContains(eventDate));
-//        List<Event> events = eventRepository.findAll(spec);
-//        log.info("{}events found", events.size());
-//        return events.stream()
-//                .map(event -> objectMapper.convertValue(event, EventDTO.class))
-//                .toList();
-//    }
-
-//    @GetMapping
-//    public ResponseEntity<List<EventDTO>> getEvents(
-//            @RequestParam(value = "name", required = false) String name,
-//            @RequestParam(value = "event date", required = false) LocalDate eventDate) {
-//        return ResponseEntity.ok(eventService.getEvents(name, eventDate));

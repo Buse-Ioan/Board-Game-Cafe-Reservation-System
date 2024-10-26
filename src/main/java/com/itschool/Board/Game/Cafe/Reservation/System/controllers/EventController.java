@@ -34,28 +34,26 @@ public class EventController {
     }
 
     @Operation(summary = "Get an event by ID")
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<EventDTO> getEventById(@PathVariable Long id) {
-        EventDTO event = eventService.findEventById(id);
         return ResponseEntity.ok(eventService.findEventById(id));
     }
 
     @Operation(summary = "Get an event by name")
-    @GetMapping("/name")
-    public ResponseEntity<List<EventDTO>> getEventsByName(@RequestParam String name) {
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<EventDTO>> getEventsByName(@PathVariable String name) {
         return ResponseEntity.ok(eventService.findEventByName(name));
     }
 
     @Operation(summary = "Get an event by date")
-    @GetMapping("/date")
-    public ResponseEntity<List<EventDTO>> getEventsByDate(@RequestParam("date") LocalDate eventDate) {
-        return ResponseEntity.ok(eventService.findByEventDate(eventDate));
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<EventDTO>> getEventsByDate(@PathVariable LocalDate date) {
+        return ResponseEntity.ok(eventService.findByEventDate(date));
     }
 
     @Operation(summary = "Update an existing event by ID")
-    @PutMapping("/{id}")
+    @PutMapping("/id/{id}")
     public ResponseEntity<EventDTO> updateEvent(@PathVariable Long id, @Valid @RequestBody EventDTO eventDTO) {
-        EventDTO updatedEvent = eventService.updateEvent(id, eventDTO);
         return ResponseEntity.ok(eventService.updateEvent(id, eventDTO));
     }
 
@@ -64,5 +62,14 @@ public class EventController {
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Get all events by name and genre filters")
+    @GetMapping("/search")
+    public ResponseEntity<List<EventDTO>> getEvents(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "genre", required = false) String genre) {
+
+        return ResponseEntity.ok(eventService.getEvents(name, genre));
     }
 }

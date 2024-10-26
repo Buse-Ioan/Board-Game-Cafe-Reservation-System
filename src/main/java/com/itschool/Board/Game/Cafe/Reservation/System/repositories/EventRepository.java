@@ -15,9 +15,3 @@ public interface EventRepository extends JpaRepository<Event, Long>, JpaSpecific
 
     List<Event> findByEventDate(LocalDate eventDate);
 }
-
-//    @Query("SELECT b FROM Event b WHERE " +
-//            "(:name IS NULL OR LOWER(b.name) LIKE LOWER(CONCAT('%', :name, '%'))) AND " +
-//            "(:eventDate IS NULL OR LOWER(b.eventDate) LIKE LOWER(CONCAT('%', :eventDate, '%')))")
-//    List<Event> findventsByFilter(@Param("name") String name,
-//                                  @Param("author") LocalDate eventDate);

@@ -91,32 +91,35 @@ http://localhost:8080
 
 ## API Endpoints
 The system offers the following functionalities:
-### Game Endpoints
-- POST /api/games - Create a new game.
-- GET /api/games - Get all games.
-- GET /api/games - Get a game by ID.
-- GET /api/games - Get a game by name.
-- PUT /api/games/{id} - Update a game.
-- DELETE /api/games/{id} - Delete a game.
 
 ### Booking Endpoints
 - POST /api/bookings - Create a new booking.
 - GET /api/bookings - Get all bookings.
-- GET /api/bookings - Get a booking by ID.
-- GET /api/bookings - Get a booking by email.
-- GET /api/bookings - Get a booking by date.
-- GET /api/bookings -Get bookings by customer name.
+- GET /api/bookings/id/{id} - Get a booking by ID.
+- GET /api/bookings/email/{email} - Get a booking by email.
+- GET /api/bookings/date/{date} - Get a booking by date.
+- GET /api/booking/customer_name/{customerName} -Get bookings by customer name.
 - PUT /api/bookings/{id} - Update a booking.
 - DELETE /api/bookings/{id} - Delete a booking.
 
 ### Event Endpoints
 - POST /api/events - Create an event.
-- GET /api/events/search - Get a list of all events.
-- GET /api/events/search - Get an event by ID.
-- GET /api/events/search - Get an event by name.
-- GET /api/events/search - Get an event by date.
+- GET /api/events - Get a list of all events.
+- GET /api/events/id/{id} - Get an event by ID.
+- GET /api/events/name/{name} - Get an event by name.
+- GET /api/events/date/{date} - Get an event by date.
+- GET /api/events/search/search?name={name}&genre={genre} - Get all events by name and genre filters
 - PUT /api/events/{id} - Update an event.
 - DELETE /api/events/{id} - Delete an event.
+
+### Game Endpoints
+- POST /api/games - Create a new game.
+- GET /api/games - Get all games.
+- GET /api/games/id/{id} - Get a game by ID.
+- GET /api/games/email/{email} - Get a game by name.
+- GET /api/games/genre/{genre} - Get a game by genre.
+- PUT /api/games/{id} - Update a game.
+- DELETE /api/games/{id} - Delete a game.
 
 Example Search Request
 ```http
@@ -146,7 +149,3 @@ Example Error Response (Game Not Found):
 
 ## Contributing                                                       
 Fork the repository and submit a pull request. For major changes, open an issue to discuss what you'd like to change.
-
-
-
-

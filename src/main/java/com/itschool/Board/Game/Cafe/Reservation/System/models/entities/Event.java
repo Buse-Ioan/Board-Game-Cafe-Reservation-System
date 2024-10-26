@@ -1,7 +1,6 @@
 package com.itschool.Board.Game.Cafe.Reservation.System.models.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDate;

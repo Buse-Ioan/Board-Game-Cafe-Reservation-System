@@ -12,5 +12,5 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByBookingDate(LocalDate bookingDate);
 
-    List<Booking> findByCustomerNameContainingIgnoreCase(String customerName); // Dynamic search by name
+    List<Booking> findByCustomerNameContainingIgnoreCase(String customerName);
 }
