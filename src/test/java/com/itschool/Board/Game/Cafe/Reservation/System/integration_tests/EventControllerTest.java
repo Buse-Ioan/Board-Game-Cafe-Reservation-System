@@ -39,7 +39,7 @@ public class EventControllerTest {
         eventDTO.setName("Catan Tournament");
         eventDTO.setEventDate(LocalDate.now());
         eventDTO.setParticipants(8);
-        eventDTO.setGameGenre("Strategy");
+        eventDTO.setGenre("Strategy");
         eventDTO.setDescription("The tournament will take place over two days with an initial round and a final.");
 
         mockMvc.perform(post("/api/events")

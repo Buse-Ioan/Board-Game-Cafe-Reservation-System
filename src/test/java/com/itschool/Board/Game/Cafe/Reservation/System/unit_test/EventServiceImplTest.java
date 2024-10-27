@@ -33,7 +33,7 @@ public class EventServiceImplTest {
     void testCreateEvent() {
         EventDTO eventDTO = new EventDTO();
         eventDTO.setName("Catan Tournament");
-        eventDTO.setGameGenre("Strategy");
+        eventDTO.setGenre("Strategy");
         eventDTO.setEventDate(LocalDate.of(2024, 10, 30));
         eventDTO.setParticipants(30);  // Assuming this field exists
         eventDTO.setDescription("The tournament will take place over two days with an initial round and a final.");
@@ -43,7 +43,7 @@ public class EventServiceImplTest {
         eventEntity.setName("Catan Tournament");
         eventEntity.setEventDate(LocalDate.of(2024, 10, 30));
         eventEntity.setParticipants(10);
-        eventEntity.setGameGenre("Strategy");
+        eventEntity.setGenre("Strategy");
         eventEntity.setDescription("The tournament will take place over two days with an initial round and a final.");
 
         when(eventRepository.save(any(Event.class))).thenReturn(eventEntity);
@@ -54,7 +54,7 @@ public class EventServiceImplTest {
 
         verify(eventRepository, times(1)).save(eventEntity);
         assertEquals("Catan Tournament", createdEvent.getName());
-        assertEquals("Strategy", createdEvent.getGameGenre());
+        assertEquals("Strategy", createdEvent.getGenre());
         assertEquals(LocalDate.of(2024, 10, 30), createdEvent.getEventDate());
         assertEquals(30, createdEvent.getParticipants());
         assertEquals("The tournament will take place over two days with an initial round and a final.", createdEvent.getDescription());
